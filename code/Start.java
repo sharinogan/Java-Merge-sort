@@ -3,3 +3,15 @@ class Start {
         System.out.println("Hello");
     }
 }
+
+class Block {
+    Node back;
+    int value;
+    String name;
+    double salary;
+}
+
+class Node {
+    int value;
+    Node next;
+}
