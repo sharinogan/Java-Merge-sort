@@ -13,10 +13,10 @@ class Link {
         if(start == null) return null;             // Empty List
         if(start.next == null) return start;       // One Node
         
-        Node second = cutMiddle(start);
+        Node mid = cutMiddle(start);
         start = sort(start);
-        second = sort(second);
-        return merge(start, second);
+        mid = sort(mid);
+        return merge(start, mid);
     }
     
     static Node merge(Node a, Node b) {
