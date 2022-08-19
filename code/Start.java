@@ -1,67 +1,38 @@
 class Start {
     public static void main(String ... data) {
-        int[] a = { 3, 5, 7, 6, 9, 2, 4, 1 };
-        java.util.Arrays.sort(a);
-        Element root = Tree.create(a);  // This is root node
-        // System.out.println(root.value);
-        
-        // Write code to find the maximum value in the given binary tree
-        // int m = Tree.findMax(root);
-        // System.out.println(m);
-        
-        // Write code to find the maximum value in the given binary search tree
-        // using non-recursive
-        Element e = root;
-        for ( ; e.right != null; e = e.right) {
-            
+        int[] a = { 8, 5, 4, 2, 7, 1, 9, 3 };
+        Node head = Link.create(a);
+        Link.print(head);
+    }
+}
+
+class Link {
+    
+    // Linked list
+    static Node create(int[] data) {
+        Node head = null, tail = null;
+        for (int i = 0; i < data.length; i++){
+            Node x = new Node();
+            x.value = data[i];
+            if (head == null) {
+                head = x;
+                tail = x;
+            } else {
+                tail.next = x;
+                tail = tail.next;  // tail++
+            }
         }
-        System.out.println(e.value);
-        
-        // print everything in the right path
-        // for (Element e = root; e != null; e = e.right) {
-        //    System.out.println(e.value); // 4 6 7
-        // }
-        
+        return head;
+    }
+    
+    static void print(Node start) {
+        for (Node e = start; e != null; e = e.next) {
+            System.out.println(e.value);
+        }
     }
 }
 
-class Tree {
-    
-    static int findMaxBinarySearchTree (Element current) {
-        
-        return 0;
-    }
-    
-    static int findMax(Element current) {
-        if (current == null) return 0;
-        int a = findMax(current.left);
-        int b = findMax(current.right);
-        int c = current.value;
-        
-        if (a >= b && a >= c) return a;
-        if (b >= a && b >= c) return b;
-        return c;
-    }
-    
-    static Element create(int[] data) {
-        return create(data, 0, data.length - 1);
-    }
-    
-    static Element create(int[] data, int left, int right) {
-        if (left > right) return null;  // no element
-        int mid = (left + right) / 2;   // Divide and conquer
-        
-        Element e = new Element();
-        e.left = create(data, left, mid - 1);
-        e.right = create(data, mid + 1, right);
-        e.value = data[mid];
-        return e;
-    }
-}
-
-class Element {
+class Node {
     int value;
-    Element left;
-    Element right;
-    Element middle;
+    Node next;
 }
