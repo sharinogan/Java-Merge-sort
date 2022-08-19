@@ -2,19 +2,39 @@ class Start {
     public static void main(String ... data) {
         int[] a = { 8, 5, 4, 2, 7, 1, 9, 3 };
         Node head = Link.create(a);
-        Node second = Link.cutMiddle(head);
-        System.out.println("First : ");
+        head = Link.sort(head);
         Link.print(head);
-        System.out.println("Second : ");
-        Link.print(second);
     }
 }
 
 class Link {
     
+    static Node sort(Node start) {
+        if(start == null) return null;             // Empty List
+        if(start.next == null) return start;       // One Node
+        
+        Node second = cutMiddle(start);
+        start = sort(start);
+        second = sort(second);
+        return merge(start, second);
+    }
+    
+    static Node merge(Node a, Node b) {
+        if (a == null && b == null) return null;
+        if (a != null && b == null) return a;
+        if (a == null && b != null) return b;
+        if (a.value < b.value) {
+            a.next = merge(a.next, b);
+            return a;
+        } else {
+            b.next = merge(a, b.next);
+            return b;
+        }
+    }
+    
     static Node cutMiddle(Node start) {
         if(start == null) return null;            // No data
-        if(start.next == null) return null;       // One Node
+        if(start.next == null) return start;       // One Node
         
         Node rabbit = start, turtle = start;
         while(rabbit != null && rabbit.next != null && rabbit.next.next != null) {
@@ -22,7 +42,7 @@ class Link {
             turtle = turtle.next;
         }
         Node result = turtle.next;
-        turtle.next = null;        // null
+        turtle.next = null;        // cut
         return result;
     }
     
